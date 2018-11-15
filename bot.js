@@ -206,5 +206,40 @@ function isYoutube(str) {
       message.channel.send({embed});
      }
     });
- 
+ const adminprefix = ".";
+const devs = ['405795595450712081' , '376452454893748231' , '431474404007084035'];
+client.on('message', message => {//for dev
+  var argresult = message.content.split(` `).slice(1).join(' ');
+    if (!devs.includes(message.author.id)) return;
+
+if (message.content.startsWith(adminprefix + 'play')) {
+  client.user.setGame(argresult);
+    message.channel.sendMessage(`**${argresult} تم تغيير بلاينق البوت إلى **`)
+} else
+  if (message.content.startsWith(adminprefix + 'setname')) {
+client.user.setUsername(argresult).then
+    message.channel.sendMessage(`**${argresult}** : تم تغيير أسم البوت إلى`)
+return message.reply("**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . **");
+} else
+  if (message.content.startsWith(adminprefix + 'setavatar')) {
+client.user.setAvatar(argresult);
+  message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
+      } else
+if (message.content.startsWith(adminprefix + 'stream')) {
+  client.user.setGame(argresult, "https://www.twitch.tv/faresgameryt");
+    message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
+}
+client.on('message', message => {//restart
+    if(message.content === adminprefix + "restart") {
+          if (!devs.includes(message.author.id)) return;
+              message.channel.send(`⚠️ **الشخص الذي اعاد تشغيل البوت ${message.author.username}**`);
+            console.log(`⚠️ جاري اعادة تشغيل البوت... ⚠️`);
+            Rocket.destroy();
+            child_process.fork(__dirname + "/bot.js");
+            console.log(`تم اعادة تشغيل البوت`);
+        }
+
+
+    });
+});
  client.login(process.env.BOT_TOKEN);
